@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Index;
 
+use App\Http\Controllers\Generic\ViewAuthController;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class IndexAuthController extends ViewAuthController
 {
     /**
      * Create a new controller instance.
