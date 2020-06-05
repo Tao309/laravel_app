@@ -3,7 +3,8 @@ MAINTAINER Tao309 <tao309@mail.ru>
 
 RUN apt-get update && apt-get install -y \
         curl \
-        git
+        git \
+        zip
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
