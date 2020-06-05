@@ -6,7 +6,7 @@ use App\Http\Controllers\Generic\ViewAuthController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 
-class VerificationAuthController extends ViewAuthController
+class VerificationController extends ViewAuthController
 {
     /*
     |--------------------------------------------------------------------------

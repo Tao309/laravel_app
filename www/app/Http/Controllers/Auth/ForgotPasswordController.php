@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Generic\ViewAuthController;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
-class ForgotPasswordAuthController extends ViewAuthController
+class ForgotPasswordController extends ViewAuthController
 {
     /*
     |--------------------------------------------------------------------------

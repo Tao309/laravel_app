@@ -6,7 +6,7 @@ use App\Http\Controllers\Generic\ViewAuthController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
-class ResetPasswordAuthController extends ViewAuthController
+class ResetPasswordController extends ViewAuthController
 {
     /*
     |--------------------------------------------------------------------------

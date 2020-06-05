@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Index;
 use App\Http\Controllers\Generic\ViewAuthController;
 use Illuminate\Http\Request;
 
-class IndexAuthController extends ViewAuthController
+class IndexController extends ViewAuthController
 {
     /**
      * Create a new controller instance.
@@ -14,7 +14,7 @@ class IndexAuthController extends ViewAuthController
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**

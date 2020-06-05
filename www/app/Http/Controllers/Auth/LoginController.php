@@ -4,25 +4,25 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Generic\ViewAuthController;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\ConfirmsPasswords;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class ConfirmPasswordAuthController extends ViewAuthController
+class LoginController extends ViewAuthController
 {
     /*
     |--------------------------------------------------------------------------
-    | Confirm Password Controller
+    | Login Controller
     |--------------------------------------------------------------------------
     |
-    | This controller is responsible for handling password confirmations and
-    | uses a simple trait to include the behavior. You're free to explore
-    | this trait and override any functions that require customization.
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
     |
     */
 
-    use ConfirmsPasswords;
+    use AuthenticatesUsers;
 
     /**
-     * Where to redirect users when the intended url fails.
+     * Where to redirect users after login.
      *
      * @var string
      */
@@ -35,6 +35,6 @@ class ConfirmPasswordAuthController extends ViewAuthController
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('guest')->except('logout');
     }
 }
