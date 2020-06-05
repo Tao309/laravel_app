@@ -12,9 +12,11 @@
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
-                    @endif
 
-                    You are logged in!
+                        You are logged in!
+                    @else
+                        You are not logged in!
+                    @endif
                 </div>
             </div>
         </div>
