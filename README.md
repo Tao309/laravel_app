@@ -2,6 +2,7 @@
 ```
 docker-compose build
 docker-compose up
+npm run dev
 ```
 
 ## Web View
