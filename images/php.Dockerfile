@@ -15,6 +15,9 @@ RUN apt-get install -y curl \
 
 RUN docker-php-ext-install pdo pdo_mysql
 
+RUN chown www-data:www-data -R /var/www;
+RUN chmod 777 -R /var/www/storage;
+
 WORKDIR /var/www
 
 CMD ["php-fpm"]

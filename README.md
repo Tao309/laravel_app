@@ -1,8 +1,12 @@
-## Run project
+## Run Docker
 ```
 docker-compose build
 docker-compose up
+```
+## Inside PHP-FPM Container
+```
 npm run dev
+php artisan migrate
 ```
 
 ## Web View

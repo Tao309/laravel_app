@@ -10,5 +10,5 @@ Route::group([
     'namespace' => 'News',
     'prefix' => 'news',
 ], function() {
-    Route::get('/', 'IndexController@index')->name('news.list');
+    Route::resource('/', 'IndexController');
 });
