@@ -5,7 +5,7 @@ namespace App\Http\Controllers\News;
 use App\Http\Controllers\Generic\ViewAuthController;
 use Illuminate\Http\Request;
 
-class IndexController extends ViewAuthController
+class NewsController extends ViewAuthController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class IndexController extends ViewAuthController
      */
     public function index()
     {
-        $models = [];
+        $models = \App\Models\News\Post::all();
 
         return view('news.index', compact('models'));
     }

@@ -22,9 +22,6 @@ class CreateCategoriesTable extends Migration
             $table->string(CategoryInterface::ATTR_SLUG, 100)->unique();
 
             $table->timestamps();
-
-            $table->foreign(CategoryInterface::ATTR_PARENT_ID)
-                ->references(CategoryInterface::ATTR_ID)->on(CategoryInterface::TABLE_NAME);
         });
     }
 

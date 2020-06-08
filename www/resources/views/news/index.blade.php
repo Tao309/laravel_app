@@ -7,14 +7,17 @@
             <div class="col-md-8">
 
 
+                @foreach($models as $model)
+
                 <div class="card">
-                    <div class="card-header">News Title</div>
+                    <div class="card-header">{{ $model->title }}</div>
 
                     <div class="card-body">
-                        News Content
+                        {{ $model->description }}
                     </div>
                 </div>
 
+                @endforeach
 
 
             </div>

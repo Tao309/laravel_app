@@ -8,7 +8,16 @@ Auth::routes();
 
 Route::group([
     'namespace' => 'News',
-    'prefix' => 'news',
+//    'prefix' => 'news',
+    'as' => 'news.',
 ], function() {
-    Route::resource('/', 'IndexController');
+    Route::resource('/news', 'NewsController')->parameter('news', 'id');
+});
+
+Route::group([
+    'namespace' => 'News\Admin',
+    'prefix' => 'admin',
+    'as' => 'news.admin.',
+], function() {
+    Route::resource('/categories', 'CategoryController')->parameter('category', 'id');
 });
