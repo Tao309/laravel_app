@@ -4,21 +4,31 @@ namespace App\Http\Controllers\News\Admin;
 
 use App\Http\Controllers\Generic\AdminViewAuthController;
 use App\Http\Requests\News\CategoryUpdateRequest;
+use App\Repositories\News\CategoryRepository;
 use Illuminate\Support\Str;
 
 class CategoryController extends AdminViewAuthController
 {
+    private $categoryRepository;
+
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        parent::__construct();
+
+        $this->categoryRepository = $categoryRepository;
+    }
+
     public function index()
     {
-        $models = \App\Models\News\Category::paginate(12);
+        $models = $this->categoryRepository->getModelsWithPaginate(12);
 
         return view('news.admin.categories.index', compact('models'));
     }
 
     public function create()
     {
-        $model = \App\Models\News\Category::make();
-        $categoryList = \App\Models\News\Category::all();
+        $model = $this->categoryRepository->getNewModel();
+        $categoryList = $this->categoryRepository->getModelsForSelectField();
 
         return view('news.admin.categories.create', compact('model', 'categoryList'));
     }
@@ -30,7 +40,7 @@ class CategoryController extends AdminViewAuthController
             $data['slug'] = Str::slug($data['title']);
         }
 
-        $model = \App\Models\News\Category::create($data);
+        $model = $this->categoryRepository->createNewModel($data);
 
         if($model->exists) {
             return redirect()
@@ -51,15 +61,19 @@ class CategoryController extends AdminViewAuthController
 
     public function edit($id)
     {
-        $model = \App\Models\News\Category::findOrFail($id);
-        $categoryList = \App\Models\News\Category::all();
+        $model = $this->categoryRepository->getModelForEdit($id);
+        if(empty($model)) {
+            abort(404);
+        }
+
+        $categoryList = $this->categoryRepository->getModelsForSelectField();
 
         return view('news.admin.categories.edit', compact('model', 'categoryList'));
     }
 
     public function update(CategoryUpdateRequest $request, $id)
     {
-        $model = \App\Models\News\Category::find($id);
+        $model = $this->categoryRepository->getModelForUpdate($id);
 
         if(empty($model)) {
             return back()
@@ -90,7 +104,7 @@ class CategoryController extends AdminViewAuthController
 
     public function destroy($id)
     {
-        $model = \App\Models\News\Category::find($id);
+        $model = $this->categoryRepository->getModelForDelete($id);
 
         if(empty($model)) {
             return back()

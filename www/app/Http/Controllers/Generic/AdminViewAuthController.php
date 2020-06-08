@@ -10,4 +10,9 @@ use Illuminate\Routing\Controller as BaseController;
 abstract class AdminViewAuthController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function __construct()
+    {
+
+    }
 }
