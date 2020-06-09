@@ -15,6 +15,4 @@ class Category extends Model implements \App\Models\News\CategoryInterface
         self::ATTR_SLUG,
         self::ATTR_PARENT_ID,
     ];
-
-
 }

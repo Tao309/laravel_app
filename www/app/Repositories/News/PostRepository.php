@@ -3,29 +3,44 @@ declare(strict_types=1);
 
 namespace App\Repositories\News;
 
-use App\Models\News\CategoryInterface;
+use App\Models\News\PostInterface;
 
-class CategoryRepository extends \App\Repositories\GenericRepository
+class PostRepository extends \App\Repositories\GenericRepository
 {
     protected function getModelClass()
     {
-        return \App\Models\News\Category::class;
+        return \App\Models\News\Post::class;
     }
 
     /**
      * @param null $perPage
-     * @return @return \Illuminate\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getModelsWithPaginate($perPage = null)
     {
         $columns = [
-            CategoryInterface::ATTR_ID,
-            CategoryInterface::ATTR_TITLE,
-            CategoryInterface::ATTR_PARENT_ID
+            PostInterface::ATTR_ID,
+            PostInterface::ATTR_TITLE,
+            PostInterface::ATTR_EXCERPT,
+            PostInterface::ATTR_DESCRIPTION,
+            PostInterface::ATTR_CATEGORY_ID,
+            PostInterface::ATTR_AUTHOR_ID,
+            PostInterface::ATTR_IS_PUBLISHED,
+            PostInterface::ATTR_PUBLISHED_AT,
         ];
 
         $result = $this->startCondition()
             ->select($columns)
+            ->with([
+                'category' => function($query) {
+                    $query->select(['id', 'title']);
+                },
+                'author' => function($query) {
+                    $query->select(['id', 'name']);
+                }
+            ])
+
+            ->orderBy(PostInterface::ATTR_ID, 'desc')
             ->paginate($perPage);
 
         return $result;
@@ -66,21 +81,5 @@ class CategoryRepository extends \App\Repositories\GenericRepository
     public function getModelForDelete(int $id)
     {
         return $this->getModelForEdit($id);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getModelsForSelectField()
-    {
-        $columns = ['id', 'title'];
-
-        $result = $this
-            ->startCondition()
-            ->select($columns)
-            ->toBase()
-            ->get();
-
-        return $result;
     }
 }

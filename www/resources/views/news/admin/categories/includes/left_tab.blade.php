@@ -45,7 +45,7 @@
                             >
                                 @foreach($categoryList as $categoryOption)
                                     <option value="{{ $categoryOption->id }}"
-                                        @if($categoryOption->id == old('parent_id', $model->parent_id)) selected @endif
+                                        @if($model->exists && $categoryOption->id == old('parent_id', $model->parent_id)) selected @endif
                                     >
                                         {{ $categoryOption->id }}. {{ $categoryOption->title }}
                                     </option>

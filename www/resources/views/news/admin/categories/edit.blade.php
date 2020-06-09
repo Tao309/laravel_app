@@ -5,65 +5,34 @@
 @extends('layouts.app')
 
 @section('content')
-    <form method="POST"
-          @if($model->exists)
-            action="{{ route('news.admin.categories.update', $model->id) }}"
-          @else
-            action="{{ route('news.admin.categories.store') }}"
-          @endif
-    >
-        @if($model->exists)
-            @method('PATCH')
-        @endif
-
-        @csrf
         <div class="container">
-            @php
-                /** @var \Illuminate\Support\ViewErrorBag $errors */
-            @endphp
-            @if($errors->any())
-                <div class="row justify-content-center">
-                    <div class="col-md-11">
-                        <div class="alert alert-danger" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
+            @include('news.admin.categories.includes.result_message')
+
+            <form method="POST"
+                  @if($model->exists)
+                  action="{{ route('news.admin.categories.update', $model->id) }}"
+                  @else
+                  action="{{ route('news.admin.categories.store') }}"
+                @endif
+            >
+                @if($model->exists)
+                    @method('PATCH')
+                @endif
+
+                @csrf
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            @include('news.admin.categories.includes.left_tab')
+                        </div>
+                        <div class="col-md-3">
+                            @include('news.admin.categories.includes.right_tab')
                         </div>
                     </div>
-                </div>
-            @endif
-
-            @if(session('success'))
-                <div class="row justify-content-center">
-                    <div class="col-md-11">
-                        <div class="alert alert-success" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            {{ session()->get('success') }}
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    @include('news.admin.categories.includes.left_tab')
-                </div>
-                <div class="col-md-3">
-                    @include('news.admin.categories.includes.right_tab')
-                </div>
-            </div>
+            </form>
         </div>
-    </form>
 
     @if($model->exists)
-        <form method="POST" action="{{ route('news.admin.categories.update', $model->id) }}">
+        <form method="POST" action="{{ route('news.admin.categories.destroy', $model->id) }}">
             @method('DELETE')
             @csrf
 

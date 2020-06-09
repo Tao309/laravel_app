@@ -3,10 +3,11 @@
 namespace App\Http\Requests\News;
 
 use App\Models\News\CategoryInterface;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
-class CategoryUpdateRequest extends FormRequest
+class PostUpdateRequest extends FormRequest
 {
     public function input($key = null, $default = null)
     {
@@ -20,7 +21,12 @@ class CategoryUpdateRequest extends FormRequest
             }
         }
 
+        if($data['is_published'] && empty($data['published_at'])) {
+            $data['published_at'] = Carbon::now();
+        }
+
         $data['slug'] = Str::slug($data['slug']);
+        $data['author_id'] = 1;//@todo change for user
 
         return $data;
     }
@@ -47,7 +53,9 @@ class CategoryUpdateRequest extends FormRequest
         return [
             'title' => ['required', 'min:5', 'max:100'],
             'slug' => ['max:100'],
-            'parent_id' => [
+            'excerpt' => ['min:5', 'max:100'],
+            'description' => ['required', 'min:5', 'max:10000'],
+            'category_id' => [
                 'required',
                 'integer',
                 'exists:'.CategoryInterface::TABLE_NAME.','.CategoryInterface::ATTR_ID

@@ -3,44 +3,51 @@
 namespace App\Http\Controllers\News\Admin;
 
 use App\Http\Controllers\Generic\AdminViewAuthController;
-use App\Http\Requests\News\CategoryUpdateRequest;
+use App\Http\Requests\News\PostUpdateRequest;
 use App\Repositories\News\CategoryRepository;
+use App\Repositories\News\PostRepository;
+use Illuminate\Http\Request;
 
-class CategoryController extends AdminViewAuthController
+class PostController extends AdminViewAuthController
 {
+    private $postRepository;
     private $categoryRepository;
 
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(
+        PostRepository $postRepository,
+        CategoryRepository $categoryRepository
+    )
     {
         parent::__construct();
 
+        $this->postRepository = $postRepository;
         $this->categoryRepository = $categoryRepository;
     }
 
     public function index()
     {
-        $models = $this->categoryRepository->getModelsWithPaginate(12);
+        $models = $this->postRepository->getModelsWithPaginate(30);
 
-        return view('news.admin.categories.index', compact('models'));
+        return view('news.admin.posts.index', compact('models'));
     }
 
     public function create()
     {
-        $model = $this->categoryRepository->getNewModel();
+        $model = $this->postRepository->getNewModel();
         $categoryList = $this->categoryRepository->getModelsForSelectField();
 
-        return view('news.admin.categories.create', compact('model', 'categoryList'));
+        return view('news.admin.posts.create', compact('model', 'categoryList'));
     }
 
-    public function store(CategoryUpdateRequest $request)
+    public function store(PostUpdateRequest $request)
     {
         $data = $request->input();
-        $model = $this->categoryRepository->createNewModel($data);
+        $model = $this->postRepository->createNewModel($data);
 
         if($model->exists) {
             return redirect()
-                ->route('news.admin.categories.edit', $model->id)
-                ->with(['success' => "Category created!"]);
+                ->route('news.admin.posts.edit', $model->id)
+                ->with(['success' => "Post created!"]);
         } else {
             return back()
                 ->withErrors(['msg' => "Error while creating"])
@@ -50,23 +57,23 @@ class CategoryController extends AdminViewAuthController
 
     public function edit($id)
     {
-        $model = $this->categoryRepository->getModelForEdit($id);
+        $model = $this->postRepository->getModelForEdit($id);
         if(empty($model)) {
             abort(404);
         }
 
         $categoryList = $this->categoryRepository->getModelsForSelectField();
 
-        return view('news.admin.categories.edit', compact('model', 'categoryList'));
+        return view('news.admin.posts.edit', compact('model', 'categoryList'));
     }
 
-    public function update(CategoryUpdateRequest $request, $id)
+    public function update(PostUpdateRequest $request, $id)
     {
-        $model = $this->categoryRepository->getModelForUpdate($id);
+        $model = $this->postRepository->getModelForUpdate($id);
 
         if(empty($model)) {
             return back()
-                ->withErrors(['msg' => "Category with ID equal {$id} not found"])
+                ->withErrors(['msg' => "Post with ID equal {$id} not found"])
                 ->withInput();
         }
 
@@ -78,8 +85,8 @@ class CategoryController extends AdminViewAuthController
 
         if($result) {
             return redirect()
-                ->route('news.admin.categories.edit', $model->id)
-                ->with(['success' => "Category saved!"]);
+                ->route('news.admin.posts.edit', $model->id)
+                ->with(['success' => "Post saved!"]);
         } else {
             return back()
                 ->withErrors(['msg' => "Error while saving"])
@@ -89,11 +96,11 @@ class CategoryController extends AdminViewAuthController
 
     public function destroy($id)
     {
-        $model = $this->categoryRepository->getModelForDelete($id);
+        $model = $this->postRepository->getModelForDelete($id);
 
         if(empty($model)) {
             return back()
-                ->withErrors(['msg' => "Category with ID equal {$id} not found"])
+                ->withErrors(['msg' => "Post with ID equal {$id} not found"])
                 ->withInput();
         }
 
@@ -101,8 +108,8 @@ class CategoryController extends AdminViewAuthController
 
         if($result) {
             return redirect()
-                ->route('news.admin.categories.index')
-                ->with(['success' => "Category deleted!"]);
+                ->route('news.admin.posts.index')
+                ->with(['success' => "Post deleted!"]);
         } else {
             return back()
                 ->withErrors(['msg' => "Error while deleting"])

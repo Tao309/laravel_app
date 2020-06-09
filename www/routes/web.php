@@ -11,7 +11,10 @@ Route::group([
 //    'prefix' => 'news',
     'as' => 'news.',
 ], function() {
-    Route::resource('/news', 'NewsController')->parameter('news', 'id');
+    $methods = ['index', 'show'];
+    Route::resource('/news', 'PostController')
+        ->parameter('post', 'id')
+        ->only($methods);
 });
 
 Route::group([
@@ -19,5 +22,11 @@ Route::group([
     'prefix' => 'admin',
     'as' => 'news.admin.',
 ], function() {
-    Route::resource('/categories', 'CategoryController')->parameter('category', 'id');
+    Route::resource('/posts', 'PostController')
+        ->parameter('post', 'id')
+        ->except(['show']);
+
+    Route::resource('/categories', 'CategoryController')
+        ->parameter('category', 'id')
+        ->except(['show']);
 });
