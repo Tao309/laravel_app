@@ -3,6 +3,7 @@
 namespace App\Http\Requests\News;
 
 use App\Models\News\CategoryInterface;
+use App\Models\News\PostInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PostUpdateRequest extends FormRequest
@@ -28,7 +29,7 @@ class PostUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'min:5', 'max:100'],
-            'slug' => ['max:100'],
+            'slug' => ['max:100', 'unique:'.PostInterface::TABLE_NAME],
             'excerpt' => ['min:5', 'max:100'],
             'description' => ['required', 'min:5', 'max:10000'],
             'category_id' => [

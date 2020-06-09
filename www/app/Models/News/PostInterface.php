@@ -16,4 +16,6 @@ interface PostInterface
     public const ATTR_AUTHOR_ID = 'author_id';
     public const ATTR_IS_PUBLISHED = 'is_published';
     public const ATTR_PUBLISHED_AT = 'published_at';
+
+    public const ID_GUEST = 0;
 }

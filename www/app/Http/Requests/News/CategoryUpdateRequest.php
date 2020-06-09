@@ -29,7 +29,7 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'min:5', 'max:100'],
-            'slug' => ['max:100'],
+            'slug' => ['max:100', 'unique:'.CategoryInterface::TABLE_NAME],
             'parent_id' => [
                 'required',
                 'integer',

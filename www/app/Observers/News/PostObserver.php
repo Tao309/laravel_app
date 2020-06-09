@@ -3,6 +3,7 @@
 namespace App\Observers\News;
 
 use App\Models\News\Post;
+use App\Models\News\PostInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -28,7 +29,7 @@ class PostObserver
 
     private function setAuthor(Post $post)
     {
-        $post->author_id = 1;
+        $post->author_id = auth()->id ?? PostInterface::ID_GUEST;
     }
 
     public function creating(Post $post)

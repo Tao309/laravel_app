@@ -34,7 +34,7 @@
                                     <td>
                                         <a href="{{ route('news.admin.categories.edit', $model->category->id) }}">{{ $model->category->title }}</a>
                                     </td>
-                                    <td>{{ $model->is_published }}</td>
+                                    <td>{{ $model->is_published ? 'Yes' : 'No' }}</td>
                                     <td>
                                         {{ $model->published_at ? \Carbon\Carbon::parse($model->published_at)->format('d.m.Y H:i') : '' }}
                                     </td>
