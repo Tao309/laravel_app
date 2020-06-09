@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \App\Models\News\Post::observe(\App\Observers\News\PostObserver::class);
+        \App\Models\News\Category::observe(\App\Observers\News\CategoryObserver::class);
     }
 }

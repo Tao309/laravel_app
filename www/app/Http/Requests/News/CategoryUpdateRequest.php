@@ -8,23 +8,6 @@ use Illuminate\Support\Str;
 
 class CategoryUpdateRequest extends FormRequest
 {
-    public function input($key = null, $default = null)
-    {
-        $data = parent::input($key, $default);
-
-        if(empty($key)) {
-            if(empty($data['slug'])) {
-                $data['slug'] = Str::slug($data['title']);
-            } else {
-                $data['slug'] = Str::slug($data['slug']);
-            }
-        }
-
-        $data['slug'] = Str::slug($data['slug']);
-
-        return $data;
-    }
-
     /**
      * Determine if the user is authorized to make this request.
      *
