@@ -102,7 +102,7 @@ class CategoryController extends AdminViewAuthController
         if($result) {
             return redirect()
                 ->route('news.admin.categories.index')
-                ->with(['success' => "Category deleted!"]);
+                ->with(['success' => "Category {$id} deleted!"]);
         } else {
             return back()
                 ->withErrors(['msg' => "Error while deleting"])

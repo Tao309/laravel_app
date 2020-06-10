@@ -2,6 +2,8 @@
 
 @section('content')
     <div class="container">
+        @include('news.admin.categories.includes.result_message')
+
         <div class="row justify-content-center">
             <div class="col-md-12">
 

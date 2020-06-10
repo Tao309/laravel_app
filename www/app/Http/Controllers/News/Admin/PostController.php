@@ -109,7 +109,7 @@ class PostController extends AdminViewAuthController
         if($result) {
             return redirect()
                 ->route('news.admin.posts.index')
-                ->with(['success' => "Post deleted!"]);
+                ->with(['success' => "Post {$id} deleted!"]);
         } else {
             return back()
                 ->withErrors(['msg' => "Error while deleting"])
