@@ -43,9 +43,17 @@
                                 class="form-control"
                                 required
                             >
+                                <option value="{{ \App\Models\News\CategoryInterface::ID_MAIN_CATEGORY }}"
+                                    @if($model->exists && !$model->parentCategory) selected @endif
+                                >{{ \App\Models\News\CategoryInterface::NAME_MAIN_CATEGORY }}</option>
+
                                 @foreach($categoryList as $categoryOption)
                                     <option value="{{ $categoryOption->id }}"
-                                        @if($model->exists && $categoryOption->id == old('parent_id', $model->parent_id)) selected @endif
+                                        @if($model->exists
+                                            && $model->parentCategory
+                                            && $categoryOption->id == old('parent_id', $model->parentCategory->id))
+                                        selected
+                                        @endif
                                     >
                                         {{ $categoryOption->id }}. {{ $categoryOption->title }}
                                     </option>

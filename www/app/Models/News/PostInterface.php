@@ -3,6 +3,13 @@ declare(strict_types=1);
 
 namespace App\Models\News;
 
+/**
+ * Interface PostInterface
+ * @package App\Models\News
+ *
+ * @property-read \App\Models\News\Category $category
+ * @property-read \App\Models\User\User $author
+ */
 interface PostInterface
 {
     public const TABLE_NAME = 'news_posts';

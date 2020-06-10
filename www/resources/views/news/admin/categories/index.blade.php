@@ -28,7 +28,7 @@
                                     <td>
                                         <a href="{{ route('news.admin.categories.edit', $model->id) }}">{{ $model->title }}</a>
                                     </td>
-                                    <td>{{ $model->parent_id }}</td>
+                                    <td>{{ $model->parentCategoryTitle ?? '' }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

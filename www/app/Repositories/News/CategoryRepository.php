@@ -26,6 +26,11 @@ class CategoryRepository extends \App\Repositories\GenericRepository
 
         $result = $this->startCondition()
             ->select($columns)
+            ->with([
+                'parentCategory' => function($query) {
+                    $query->select(['id', 'title']);
+                },
+            ])
             ->paginate($perPage);
 
         return $result;
